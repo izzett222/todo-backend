@@ -1,8 +1,9 @@
 const express = require("express");
-const morgan = require("morgan")
+const dotenv = require("dotenv")
 const logger = require("./utils/logger")
 const app = express()
 
+dotenv.config()
 let todoList = [
     {
         id: 1,
@@ -56,7 +57,7 @@ app.delete("/api/tasks/:id", (req, res) => {
     todoList = tasks
     res.status(204).end()
 })
-
-app.listen(3045, () => {
-    console.log("listening to port 3045");
+const { PORT } = process.env
+app.listen(PORT, () => {
+    console.log(`listening to port ${PORT}`);
 })
