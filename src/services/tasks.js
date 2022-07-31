@@ -7,7 +7,7 @@ const getSingleTask = (id) => {
     return Task.findById(id)
 }
 const addNewTask = (name) => {
-    const newTask = new Task({ name, isDone: false })
+    const newTask = new Task({ name })
     return newTask.save()
 }
 const deleteTask = (id) => {

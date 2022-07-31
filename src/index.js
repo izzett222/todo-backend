@@ -8,23 +8,6 @@ const errorHandler = require("./utils/errorHandler")
 const app = express()
 
 dotenv.config()
-let todoList = [
-    {
-        id: 1,
-        name: "clean the rooms",
-        isDone: false
-    },
-    {
-        id: 2,
-        name: "take out the trash",
-        isDone: false
-    },
-    {
-        id: 3,
-        name: "buy groceries",
-        isDone: false
-    }
-]
 app.use(cors())
 app.use(express.json())
 

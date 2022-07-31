@@ -1,7 +1,14 @@
 const mongoose = require("../config")
 const taskSchema = new mongoose.Schema({
-    name: String,
-    isDone: Boolean
+    name: {
+        type: String,
+        minLength: 5,
+        required: true
+    },
+    isDone: {
+        type: Boolean,
+        default: false
+    }
 })
 taskSchema.set("toJSON", {
     transform: (document, returnedObject) => {
