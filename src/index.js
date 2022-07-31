@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv")
+const cors = requre("cors")
 const logger = require("./utils/logger")
 const app = express()
 
@@ -21,6 +22,7 @@ let todoList = [
         isDone: false
     }
 ]
+app.use(cors())
 app.use(express.json())
 
 app.use(logger)
