@@ -1,6 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv")
-const cors = requre("cors")
+const cors = require("cors")
 const logger = require("./utils/logger")
 const app = express()
 
