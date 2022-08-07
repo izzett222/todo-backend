@@ -1,17 +1,25 @@
-const Task = require("../db/models/task")
-
+const {Task, List} = require("../database/models")
 const getAllTasks = () => {
-    return Task.find({})
+    return Task.findAll()
 }
 const getSingleTask = (id) => {
-    return Task.findById(id)
+    return Task.findByPk(id)
 }
 const addNewTask = (name) => {
-    const newTask = new Task({ name })
-    return newTask.save()
+    return Task.create({name})
 }
 const deleteTask = (id) => {
-    return Task.findByIdAndDelete(id)
+    return Task.destroy({ where: id })
+}
+const getAllLists = () => {
+    return List.findAll({ include: Task })
+}
+const createList = (title) => {
+    return List.create({ title })
+}
+const newListTask = async (listId, name) => {
+    const list = await List.findByPk(listId);
+    return list.createTask({ name })
 }
 
-module.exports = { getAllTasks, getSingleTask, addNewTask, deleteTask }
+module.exports = { getAllTasks, getSingleTask, addNewTask, deleteTask, getAllLists, createList, newListTask }
