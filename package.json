@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index",
     "dev": "nodemon src/index",
-    "build": "npx sequilize db:migrate"
+    "build": "npx sequilize-cli db:migrate"
   },
   "repository": {
     "type": "git",
