@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
 dotenv.config()
-const { DEV_URL, PROD_URL } = process.env
+const { DEV_URL, DATABASE_URL } = process.env
 module.exports = {
   development: {
     url: DEV_URL,
@@ -10,8 +10,8 @@ module.exports = {
       rejectUnauthorized: false,
     },
   },
-  url: {
-    url: PROD_URL,
+  production: {
+    url: DATABASE_URL,
     dialect: 'postgres',
     ssl: {
       require: true,
