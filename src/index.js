@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv")
 const cors = require("cors")
 const logger = require("./utils/logger")
-const { getAllTasks, getSingleTask, addNewTask, deleteTask, getAllLists,createList, newListTask } = require("./services/tasks")
+const { getAllLists,createList, newListTask, changeTitle } = require("./services/tasks")
 const errorHandler = require("./utils/errorHandler")
 const app = express()
 
@@ -27,6 +27,13 @@ app.post("/api/lists/:id", async (req, res) => {
     const { name } = req.body;
     const task = await newListTask(id, name);
     res.json(task);
+})
+app.put('/api/lists/:id', async (req, res) => {
+    const { id } = req.params;
+    const { title } = req.body;
+    const updated_list = await changeTitle(id, title)
+    console.log(updated_list, id, title)
+    res.json({ message: 'updated successfully'})
 })
 app.use(errorHandler)
 const { PORT } = process.env
