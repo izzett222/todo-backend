@@ -3,19 +3,22 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  const List = sequelize.define('List', {
+  const User = sequelize.define('User', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
-    title: {
+    username: {
       type: DataTypes.STRING,
+      unique: true
     },
+    password: {
+      type: DataTypes.STRING
+    }
   })
-  List.associate = models => {
-    List.hasMany(models.Task)
-    List.belongsTo(models.User)
+  User.associate = models => {
+    User.hasMany(models.List)
   }
-  return List;
+  return User;
 };

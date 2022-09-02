@@ -1,28 +1,19 @@
 const { Task, List } = require("../database/models")
-const getAllTasks = () => {
-    return Task.findAll()
+
+const getAllLists = (user) => {
+    return user.getLists({ include: { model: Task, separate: true, order: [['createdAt', 'desc']] },  order: [['createdAt', 'desc']] })
+    //return List.findAll({ include: { model: Task, separate: true, order: [['createdAt', 'desc']] },  order: [['createdAt', 'desc']] })
 }
-const getSingleTask = (id) => {
-    return Task.findByPk(id)
+const createList = (user, title) => {
+    return user.createList({ title })
 }
-const addNewTask = (name) => {
-    return Task.create({ name })
+const newListTask = async (user, listId, name) => {
+    const lists = await user.getLists({ where: { id: listId }})
+    return lists[0].createTask({ name })
 }
-const deleteTask = (id) => {
-    return Task.destroy({ where: id })
-}
-const getAllLists = () => {
-    return List.findAll({ include: { model: Task, separate: true, order: [['createdAt', 'desc']] },  order: [['createdAt', 'desc']] })
-}
-const createList = (title) => {
-    return List.create({ title })
-}
-const newListTask = async (listId, name) => {
-    const list = await List.findByPk(listId);
-    return list.createTask({ name })
-}
-const changeTitle = (listId, title) => {
-    return List.update({ title }, { where: { id: listId }})
+const changeTitle = async (user, listId, title) => {
+    const lists = await user.getLists({ where: { id: listId }})
+    return lists[0].update({ title }, { where: { id: listId }})
 }
 
-module.exports = { getAllTasks, getSingleTask, addNewTask, deleteTask, getAllLists, createList, newListTask, changeTitle }
+module.exports = {  getAllLists, createList, newListTask, changeTitle }
